@@ -1,0 +1,6 @@
+django
+django-htmx
+django-crispy-forms
+django-allauth
+pillow
+crispy-bootstrap5
