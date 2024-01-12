@@ -5,6 +5,9 @@ class Collection(models.Model):
     desc = models.TextField()
     image = models.ImageField(upload_to="collection", blank=True, null=True)
 
+    def __str__(self):
+        return self.name
+
 class Product(models.Model):
     food_choices = (
         (0, 'Egg'),
@@ -21,6 +24,9 @@ class Product(models.Model):
     is_new = models.BooleanField(default=True)
     is_best_seller = models.BooleanField(default=False)
     is_available = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
