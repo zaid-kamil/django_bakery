@@ -36,8 +36,7 @@ def register_view(request):
         form.save()
         messages.success(request, "account created successfully")
         return redirect('login')
-    return render(request,'accounts/register.html',
-        {'form': form})
+    return render(request,'accounts/register.html',{'form': form})
 
 # logout
 def logout_view(request):

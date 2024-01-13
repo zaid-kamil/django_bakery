@@ -1,0 +1,38 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block title %}Login{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/login_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="left">
+    <div class="card">
+        <div class="card-body">
+            <h1>Login</h1>
+            <p class="fs-6">access your account</p>
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control form-control-lg" name="username" id="username"
+                        aria-describedby="usernamehelpId" placeholder="John@cena.com" />
+                    <small id="usernamehelpId" class="form-text text-muted">enter your registered credential</small>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="password" />
+                </div>
+                <div class="mb-3 text-end">
+                    <a class="text-decoration-none" href="{% url 'register' %}">Create account</a> 
+                    <button class="btn btn-dark">Login to Account</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="right">
+    <img src="{% static 'images/login_bg.jpg' %}" alt="">
+</div>
+{% endblock %}
