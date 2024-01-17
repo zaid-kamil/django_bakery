@@ -8,6 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('', include('home.urls')),
+    path('', include('inventory.urls')),
 ]
 
 # to load media files in development

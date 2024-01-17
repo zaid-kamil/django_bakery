@@ -1,0 +1,37 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block title %}
+Contact us
+{% endblock title %}
+
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control form-control-sm" name="email" id="email"
+                        aria-describedby="emailhelpId" placeholder="Contact Email" />
+                    <small id="emailhelpId" class="form-text text-muted">We will not spam you🤪</small>
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control form-control-sm" name="name" id="name"
+                        aria-describedby="namehelp" placeholder="Your name" />
+                    <small id="namehelp" class="form-text text-muted">dont use special characters</small>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea class="form-control" name="message" id="message" rows="6"></textarea>
+                </div>
+                <div class="d-flex">
+                    <button class="btn btn-outline-dark">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

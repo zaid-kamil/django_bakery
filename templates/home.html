@@ -36,10 +36,12 @@
                 <div class="row">
                     {% for item in collections %}
                     <div class="col-md-3 text-center collection">
-                        <div class="wrapper">
-                            <img src="{{item.image.url}}" alt="{{item.name}}" class="img-fluid rounded-circle">
-                        </div>
-                        <a href="#" class="fs-4 fw-bold text-decoration-none">{{item.name}}</a>
+                        <a href="{% url 'collection_detail' item.id %}">
+                            <div class="wrapper">
+                                <img src="{{item.image.url}}" alt="{{item.name}}" class="img-fluid rounded-circle">
+                            </div>
+                        </a>
+                        <a href="{% url 'collection_detail' item.id %}" class="fs-4 fw-bold text-decoration-none">{{item.name}}</a>
                     </div>
                     {% empty %}
                     {% endfor %}
@@ -100,7 +102,7 @@
         border-radius: 50%;
         overflow: hidden;
     }
-    
+
     .collection .wrapper img {
         transform: scale(1.5);
         aspect-ratio: 1/1;
