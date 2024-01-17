@@ -1,10 +1,76 @@
 {% extends 'layout/base.html' %}
 {% load static %}
 {% block title %}
-    {{collection}}
+{{collection}}
 {% endblock title %}
 
+
+{% block css %}
+<style>
+    .collection-image {
+        height: 600px;
+        object-fit: cover;
+        object-position: center;
+    }
+</style>
+{% endblock %}
+
+
 {% block content %}
-    
+<div class="container-fluid px-0 mx-0">
+    <div class="row mx-0">
+        <div class="col text-center px-0 ">
+            <img src="{{collection.image.url}}" alt="{{collection.name}}" class="w-100 collection-image">
+            <h1>{{collection.name}}</h1>
+            <p class="lead">
+                {{collection.desc}}
+            </p>
+        </div>
+    </div>
+</div>
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-2">
+            <h3>Collections</h3>
+            <!-- Some borders are removed -->
+            <ul class="list-group list-group-flush">
+                {% for col in collections %}
+                <li class="list-group-item"> 
+                    <a class="nav-link" href="{% url 'collection_detail' col.id %}">
+                        &rightarrow; {{col.name}}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-10">
+            <div class="container-fluid">
+                <div class="row">
+
+                    {% for prd in products %}
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="{{prd.image.url}}" alt="{{prd.name}}" class="card-img-top">
+                            <div class="card-body">
+                                <h2 title="{{prd.name}}">{{prd.name|truncatechars:15}}</h2>
+                                <div class="d-flex justify-content-between">
+                                    <p class="fw-bold my-1">Rs.{{prd.price}}</p>
+                                    <div>
+                                        <a href="#" class="btn btn-outline-success btn-sm">Add to cart</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="alert alert-warning" role="alert">
+                        <strong>No Products available</strong> Check later!
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}
-    

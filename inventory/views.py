@@ -5,7 +5,8 @@ def collection(request, id):
     c = Collection.objects.get(id=id)
     return render(request, 'inventory/collection.html', context={
         'collection': c,
-        'products': Product.objects.filter(collection=c)
+        'products': Product.objects.filter(collection=c),
+        'collections': Collection.objects.all(),
     })
 
 def collection_list(request):
