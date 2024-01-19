@@ -1,41 +1,54 @@
 {% extends 'layout/base.html' %}
 {% load static %}
 {% block title %}
- all products
+all products
 {% endblock title %}
 
 
 {% block css %}
 <style>
-
+    .all-product-header {
+        background-image: url("{% static 'images/all_products_bg.jpg' %}");
+        background-size: cover;
+        background-position: left;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        height: 600px;
+    }
 </style>
 {% endblock %}
 
 
 {% block content %}
-<div class="container-fluid px-0 mx-0">
-    <div class="row mx-0">
-        <div class="col text-center px-0 ">
-            <h1 class="display-4 fw-bold">All Products</h1>
-        </div>
+<div class="p-5 mb-4 bg-light all-product-header text-light">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Product Catalog</h1>
+        <p class="col-md-8 fs-4">
+            Our products are made with the best quality materials and are available at affordable prices.
+        </p>
     </div>
 </div>
+
 <div class="container my-5">
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-3">
             <h3>Collections</h3>
-            <!-- Some borders are removed -->
             <ul class="list-group list-group-flush">
                 {% for col in collections %}
-                <li class="list-group-item"> 
+                <li class="list-group-item {% if col.id == collection.id %}active{% endif %} rounded">
                     <a class="nav-link" href="{% url 'collection_detail' col.id %}">
                         &rightarrow; {{col.name}}
                     </a>
                 </li>
                 {% endfor %}
+                <li class="list-group-item">
+                    <a href="{% url 'product_all' %}" class="nav-link">
+                        &rightarrow; All Products
+                    </a>
+                </li>
             </ul>
         </div>
-        <div class="col-md-10">
+        <div class="col-md-9">
             <div class="container-fluid">
                 <div class="row">
 
@@ -46,11 +59,11 @@
                                 <img src="{{prd.image.url}}" alt="{{prd.name}}" class="card-img-top">
                             </a>
                             <div class="card-body">
-                                <h2 title="{{prd.name}}">
+                                <h3 title="{{prd.name}}">
                                     <a href="{% url 'product_detail' prd.id %}" class="text-decoration-none text-dark">
                                         {{prd.name|truncatechars:15}}
                                     </a>
-                                </h2>
+                                </h3>
                                 <div class="d-flex justify-content-between">
                                     <p class="fw-bold my-1">Rs.{{prd.price}}</p>
                                     <div class="">
