@@ -35,12 +35,17 @@
             <!-- Some borders are removed -->
             <ul class="list-group list-group-flush">
                 {% for col in collections %}
-                <li class="list-group-item"> 
+                <li class="list-group-item">
                     <a class="nav-link" href="{% url 'collection_detail' col.id %}">
                         &rightarrow; {{col.name}}
                     </a>
                 </li>
                 {% endfor %}
+                <li class="list-group-item">
+                    <a href="{% url 'product_all' %}" class="nav-link">
+                        &rightarrow; All Products
+                    </a>
+                </li>
             </ul>
         </div>
         <div class="col-md-10">
@@ -50,12 +55,21 @@
                     {% for prd in products %}
                     <div class="col-md-4">
                         <div class="card">
-                            <img src="{{prd.image.url}}" alt="{{prd.name}}" class="card-img-top">
+                            <a href="{% url 'product_detail' prd.id %}" class="text-decoration-none">
+                                <img src="{{prd.image.url}}" alt="{{prd.name}}" class="card-img-top">
+                            </a>
                             <div class="card-body">
-                                <h2 title="{{prd.name}}">{{prd.name|truncatechars:15}}</h2>
+                                <h2 title="{{prd.name}}">
+                                    <a href="{% url 'product_detail' prd.id %}" class="text-decoration-none text-dark">
+                                        {{prd.name|truncatechars:15}}
+                                    </a>
+                                </h2>
                                 <div class="d-flex justify-content-between">
                                     <p class="fw-bold my-1">Rs.{{prd.price}}</p>
-                                    <div>
+                                    <div class="">
+                                        <a href="{% url 'product_detail' prd.id %}" class="btn btn-primary btn-sm">
+                                            view
+                                        </a>
                                         <a href="#" class="btn btn-outline-success btn-sm">Add to cart</a>
                                     </div>
                                 </div>

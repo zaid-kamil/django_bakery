@@ -1,10 +1,81 @@
 {% extends 'layout/base.html' %}
 {% load static %}
 {% block title %}
-    {{product}}
+{{product}}
 {% endblock title %}
 
 {% block content %}
-    
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{product.image.url}}" alt="" class="img-fluid">
+        </div>
+        <div class="col-md-6">
+            <h1>{{product.name}}</h1>
+            <div class="fs-2">${{product.price}}</div>
+            <a href="#" class="btn btn-success btn-sm">Add to cart</a>
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+                        type="button" role="tab" aria-controls="home" aria-selected="true">
+                        Description
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
+                        type="button" role="tab" aria-controls="profile" aria-selected="false">
+                        Ingredients
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages"
+                        type="button" role="tab" aria-controls="messages" aria-selected="false">
+                        Detail
+                    </button>
+                </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <p class="lead">
+                        {{product.desc}}
+                    </p>
+                </div>
+                <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <p class="lead">
+                        {{product.ingredients}}
+                    </p>
+                </div>
+                <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+                    <div class="w-50 p-5">
+                        <table class="table table-light">
+                            <tbody>
+                                <tr class="">
+                                    <td scope="row" class="fw-bold">Type</td>
+                                    <td>
+                                        {% if product.food_type == 0 %}
+                                        EGG
+                                        {% else %}
+                                        EGGLESS
+                                        {% endif %}
+                                    </td>
+
+                                </tr>
+                                <tr class="">
+                                    <td scope="row" class="fw-bold">Quantity</td>
+                                    <td>{{product.qty}}</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 {% endblock content %}
-    
