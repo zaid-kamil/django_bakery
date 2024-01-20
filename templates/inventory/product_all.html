@@ -70,7 +70,9 @@ all products
                                         <a href="{% url 'product_detail' prd.id %}" class="btn btn-primary btn-sm">
                                             view
                                         </a>
-                                        <a href="#" class="btn btn-outline-success btn-sm">Add to cart</a>
+                                        <a hx-get="{% url 'add_to_cart' prd.id %}" class="btn btn-outline-success btn-sm">
+                                            Add to cart
+                                        </a>
                                     </div>
                                 </div>
                             </div>

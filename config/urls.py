@@ -9,6 +9,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('', include('home.urls')),
     path('', include('inventory.urls')),
+    path('', include('cart.urls')),
 ]
 
 # to load media files in development

@@ -13,7 +13,9 @@
         <div class="col-md-6">
             <h1>{{product.name}}</h1>
             <div class="fs-2">${{product.price}}</div>
-            <a href="#" class="btn btn-success btn-sm">Add to cart</a>
+            <a hx-get="{% url 'add_to_cart' product.id %}" class="btn btn-success btn-sm">
+                Add to cart
+            </a>
             <!-- Nav tabs -->
             <ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">

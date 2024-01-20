@@ -1,4 +1,5 @@
 {% load inventory_tags %}
+{% load cart_tags %}
 <nav class="navbar navbar-expand-lg navbar-dark px-5" style="background-color: #d94a02;">
     <a class="navbar-brand" href="{% url 'home' %}">Django Bakery</a>
     <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId"
@@ -15,51 +16,51 @@
                 <a class="nav-link active" href="{% url 'home' %}" aria-current="page">Home <span
                         class="visually-hidden">(current)</span></a>
             </li>
-            
-            
+
+
             <!-- dropdown menu for displaying collections -->
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                Collections
-            </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownId">
-                {% get_collections as collection_list %}
-                {% for item in collection_list %}
-                <a class="dropdown-item" href="{% url 'collection_detail' item.id %}">{{item.name}}</a>
-                {% empty %}
-                <a class="dropdown-item" href="#">No Collection</a>
-                {% endfor %}
-                <a class="dropdown-item" href="{% url 'collection_all' %}">All Collections</a>
-            </div>
-        </li>
-        
-        <!-- dropdown menu for displaying products -->
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Products
-        </a>
-        <div class="dropdown-menu" aria-labelledby="dropdownId">
-            {% get_products as product_list %}
-            {% for item in product_list %}
-            <a class="dropdown-item" href="{% url 'product_detail' item.id %}">{{item.name}}</a>
-            {% empty %}
-            <a class="dropdown-item" href="#">No Product</a>
-            {% endfor %}
-            <a class="dropdown-item" href="{% url 'product_all' %}">All Products</a>
-        </div>
-    </li>
-    
-    <li class="nav-item"><a href="{% url 'about' %}" class="nav-link">About Us</a></li>
-    <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
-    {% if not user.is_authenticated %}
-    <div class="btn-group ms-2">
-        <li class="btn btn-sm btn-light my-2 my-sm-0 py-0 px-2">
-            <a class="nav-link fs-6" href="{% url 'login' %}" style="color: #d94a02;">Login</a>
-        </li>
-        <li class="btn btn-sm btn-light my-2 my-sm-0 py-0 px-2" style="background-color: #d94a02;">
-            <a class="nav-link text-light fs-6" href="{% url 'register' %}">Register</a>
+                    aria-haspopup="true" aria-expanded="false">
+                    Collections
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownId">
+                    {% get_collections as collection_list %}
+                    {% for item in collection_list %}
+                    <a class="dropdown-item" href="{% url 'collection_detail' item.id %}">{{item.name}}</a>
+                    {% empty %}
+                    <a class="dropdown-item" href="#">No Collection</a>
+                    {% endfor %}
+                    <a class="dropdown-item" href="{% url 'collection_all' %}">All Collections</a>
+                </div>
+            </li>
+
+            <!-- dropdown menu for displaying products -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Products
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownId">
+                    {% get_products as product_list %}
+                    {% for item in product_list %}
+                    <a class="dropdown-item" href="{% url 'product_detail' item.id %}">{{item.name}}</a>
+                    {% empty %}
+                    <a class="dropdown-item" href="#">No Product</a>
+                    {% endfor %}
+                    <a class="dropdown-item" href="{% url 'product_all' %}">All Products</a>
+                </div>
+            </li>
+
+            <li class="nav-item"><a href="{% url 'about' %}" class="nav-link">About Us</a></li>
+            <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
+            {% if not user.is_authenticated %}
+            <div class="btn-group ms-2">
+                <li class="btn btn-sm btn-light my-2 my-sm-0 py-0 px-2">
+                    <a class="nav-link fs-6" href="{% url 'login' %}" style="color: #d94a02;">Login</a>
+                </li>
+                <li class="btn btn-sm btn-light my-2 my-sm-0 py-0 px-2" style="background-color: #d94a02;">
+                    <a class="nav-link text-light fs-6" href="{% url 'register' %}">Register</a>
                 </li>
             </div>
             {% else %}
@@ -73,7 +74,16 @@
                 </div>
             </li>
             {% endif %}
+            <!-- cart -->
+            <li class="nav-item">
+                <a href="{% url 'view_cart' %}" class="nav-link">
+                    Cart
+                    {% count_cart_items as item_count %}
+                    {% if item_count  %}
+                    <span class="badge bg-light text-dark cart-counter">{{item_count}}</span>
+                    {% endif %}
+                </a>
+            </li>
         </ul>
-
     </div>
 </nav>
