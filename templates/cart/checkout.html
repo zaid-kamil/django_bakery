@@ -1,0 +1,28 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+
+{% block title %}
+order placed
+{% endblock title %}
+
+
+{% block content %}
+<div class="container py-5">
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">Your ordered has been palced</h1>
+            <p class="col-md-8 fs-4">
+                We dont like actually taking orders from customers. We just like to
+                pretend that we do. So we will not be shipping you anything. But if you
+                want to pretend that you have received something, you can download this
+                image and pretend that it is a product that you ordered.
+            </p>
+            <a href="{% url 'product_all' %}" class="btn btn-primary btn-lg" type="button">
+                Continue Shopping
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

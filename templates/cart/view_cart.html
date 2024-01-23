@@ -2,19 +2,117 @@
 {% load static %}
 
 {% block title %}
-    My Cart
+My Cart
 {% endblock title %}
 
 
+{% block css %}
+<style>
+    .prd-card {
+        width: calc(100% - 200px);
+        display: flex !important;
+        flex-direction: row !important;
+    }
+
+    .prd-img {
+        width: 100px;
+
+        object-fit: cover;
+    }
+</style>
+{% endblock css %}
+
+
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                Cart Items here
-                {{items}}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="table-responsive-md">
+                <table class="table table-hover table-borderless table-light ">
+                    <thead class="table-light">
+                        <caption>
+                            {{user.username|title}}'s Cart
+                        </caption>
+                        <tr>
+                            <th># id</th>
+                            <th>Product</th>
+                            <th>Qty</th>
+                            <th colspan="2">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+
+                        {% for item in items %}
+                        <tr class="table-light cart-item">
+                            <td scope="row">
+                                <div>#product-{{item.product.id}}</div>
+                            </td>
+                            <td>
+                                <div class="card prd-card">
+                                    <img src="{{item.product.image.url}}" alt="{{item.product.name}}"
+                                        class="card-img-top prd-img">
+                                    <div class="card-body">
+                                        <div class="card-title">{{item.product.name}}</div>
+                                        <p class="lead fs-6">
+                                            {{item.product.collection}}
+                                        </p>
+                                        <p class="">
+                                            <small>$
+                                                <span class="price">{{item.product.price}}</span>
+                                                per {{item.product.qty}} (gram/pc)</small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="qty">{{item.qty}}</td>
+                            <td class="ppp fw-bold fs-5">
+                                Calculating...
+                            </td>
+                            <td>
+                                <a hx-delete="{% url 'remove_from_cart' item.product.id %}" class="btn btn-danger" hx-target=".cart-item">Remove</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <div class="alert alert-primary" role="alert">
+                            <strong>No items</strong> Add products to your cart
+                        </div>
+
+                        {% endfor %}
+
+                        <tr class="table-primary">
+                           <td colspan="3">Total</td>
+                            <td colspan="2"><span class="total lead ">{{total}}</span></td> 
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                <a href="{% url 'checkout' %}" class="btn btn-primary">Checkout</a>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
+
         </div>
     </div>
+</div>
 {% endblock %}
-    
-    
+
+
+{% block js %}
+<script>
+
+    let items = document.querySelectorAll('.cart-item')
+    let total = 0
+    items.forEach(row => {
+        const price = row.querySelector('.price').innerText
+        const qty = row.querySelector('.qty').innerText
+        const ppp = row.querySelector('.ppp')
+        const itemTotal = price * qty
+        total += itemTotal
+        ppp.innerText = `$${itemTotal}`
+    });
+    document.querySelector('.total').innerText = `$${total}`
+</script>
+{% endblock %}

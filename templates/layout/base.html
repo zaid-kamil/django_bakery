@@ -16,7 +16,7 @@
     {% block css %}{% endblock %}
 </head>
 
-<body>
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
     <header>
         {% include 'components/navbar.html' %}
     </header>
